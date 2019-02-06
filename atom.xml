@@ -5,9 +5,9 @@
   <subtitle>testing</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="https://hinanawif.github.io/"/>
   <updated>2019-02-03T13:15:36.067Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>https://hinanawif.github.io/</id>
   
   <author>
     <name>Hinanawi_Feng</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>first</title>
-    <link href="http://yoursite.com/2019/02/03/first/"/>
-    <id>http://yoursite.com/2019/02/03/first/</id>
+    <link href="https://hinanawif.github.io/2019/02/03/first/"/>
+    <id>https://hinanawif.github.io/2019/02/03/first/</id>
     <published>2019-02-03T13:08:47.000Z</published>
     <updated>2019-02-03T13:15:36.067Z</updated>
     
@@ -40,8 +40,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/2019/02/03/hello-world/"/>
-    <id>http://yoursite.com/2019/02/03/hello-world/</id>
+    <link href="https://hinanawif.github.io/2019/02/03/hello-world/"/>
+    <id>https://hinanawif.github.io/2019/02/03/hello-world/</id>
     <published>2019-02-03T09:36:24.675Z</published>
     <updated>2019-02-03T09:36:24.675Z</updated>
     

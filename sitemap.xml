@@ -2,14 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/2019/02/03/first/</loc>
+    <loc>https://hinanawif.github.io/friends/index.html</loc>
+    
+    <lastmod>2019-02-06T15:11:30.699Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hinanawif.github.io/2019/02/03/first/</loc>
     
     <lastmod>2019-02-03T13:15:36.067Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/2019/02/03/hello-world/</loc>
+    <loc>https://hinanawif.github.io/2019/02/03/hello-world/</loc>
     
     <lastmod>2019-02-03T09:36:24.675Z</lastmod>
     
