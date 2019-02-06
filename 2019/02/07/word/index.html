@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,blog,Hinanawi_Feng,个人博客">
+  <meta name="description" content="Hinanawi_Feng的个人博客">
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+  
+  <link rel="dns-prefetch" href="https://widget.daovoice.io">
+  <link rel="dns-prefetch" href="https://widget-static-cdn.daovoice.io">
+  <link rel="dns-prefetch" href="https://im.daovoice.io">
+  
+  
+  <link rel="dns-prefetch" href="https://hm.baidu.com/">
+  
+  
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://api.github.com">
+  <link rel="dns-prefetch" href="https://avatars3.githubusercontent.com">
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.d9e3dd.css">
+	<link rel="shortcut icon" href="/favicon.ico" title="Favicon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+	<title>题解P1019单词接龙</title>
+  
+  <script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?awwssw1snsnsnn1ndndnndnd99j";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();
+  </script>
+  
+  
+    <script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/123456.js","daovoice");daovoice('init',{app_id: "123456"});daovoice('update');
+  </script>
+  
+</head>
+<body>
+<canvas id="pattern-placeholder" height="230"></canvas>
+<div class="navbar-header">
+  <a class="blog-title" href="/">Hinanawi_Field</a>
+  <a class="face-img" href="/">
+    <img src="https://i.loli.net/2019/02/03/5c56d8bf2d645.png">
+  </a>
+</div>
+<main>
+  <div class="article-title">
+    
+  
+  <h1 class="title">
+    题解P1019单词接龙
+  </h1>
+  
+
+
+    <ul class="article-info">
+      <li>
+        发布
+        <time datetime="2019-02-06T17:44:32.000Z" itemprop="datePublished">2019-02-07</time>
+      </li>
+      <li>
+        
+    更新 <time datetime="2019-02-06T17:47:37.274Z" itemprop="dateUpdated">2019-02-07</time>
+
+      </li>
+      <li id="busuanzi_container_page_pv">
+        阅读 <span id="busuanzi_value_page_pv"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="article">
+      <div class="content">
+        
+        <h2 id="首先在题意上可能有些误解。"><a href="#首先在题意上可能有些误解。" class="headerlink" title="首先在题意上可能有些误解。"></a>首先在题意上可能有些误解。</h2><ul>
+<li>两个单词合并时，合并部分取的是<strong>最小重叠部分</strong></li>
+<li><strong>相邻的两部分不能存在包含关系</strong>就是说如果存在包含关系，就不能标记为使用过。</li>
+<li>每个单词最多出现两次.</li>
+</ul>
+<p>(其实也就是读题问题。这些都是我所犯的错误，希望大家能注意一下)</p>
+<p>好了。然后是解题思路。</p>
+<p>首先是预处理，用yc[i][j]来存储 第i个单词 后连接 第j个单词 的 最小重叠部分（mt函数）</p>
+<p>后来预处理完了之后就是深搜:</p>
+<p>先从第一个到最后一个单词看一看哪个单词是指定字母为开头的，作为深搜的第一个单词，同时标记使用过一次（vis[i]++)</p>
+<p>然后继续搜吧。</p>
+<p>以下是代码。 mt函数可能有点难理解。拿草纸模拟一下就能很直观知道在干什么了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt; </span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n;<span class="comment">//单词数 </span></span><br><span class="line"><span class="built_in">string</span> tr[<span class="number">30</span>];<span class="comment">//存储字符串 </span></span><br><span class="line"><span class="keyword">int</span> yc[<span class="number">30</span>][<span class="number">30</span>];<span class="comment">//两个字母的最小重叠部分 </span></span><br><span class="line"><span class="keyword">int</span> vis[<span class="number">30</span>];<span class="comment">//判断单词使用频率. </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mt</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>&#123;<span class="comment">//mt函数，返回x单词后连接一个y单词的最小重叠部分 </span></span><br><span class="line">    <span class="keyword">bool</span> pp=<span class="literal">true</span>; </span><br><span class="line">    <span class="keyword">int</span> ky=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> k=tr[x].size()<span class="number">-1</span>;k&gt;=<span class="number">0</span>;k--)&#123;<span class="comment">//从x单词尾部向前看看最小重叠部分是从哪里开始的，以为因为是倒着来，所以保证是最小的 </span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> kx=k;kx&lt;tr[x].size();kx++)&#123;/ </span><br><span class="line">            <span class="keyword">if</span>(tr[x][kx]!=tr[y][ky++])&#123;</span><br><span class="line">                pp=<span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(pp==<span class="literal">true</span>)&#123;<span class="comment">//如果说当前以k为开头的前一个单词后缀 ,是后面单词的前缀，就马上返回重叠部分。（tr[x].size()-k是找出来的规律）</span></span><br><span class="line">            <span class="keyword">return</span> tr[x].size()-k;        &#125; </span><br><span class="line">        ky=<span class="number">0</span>;</span><br><span class="line">        pp=<span class="literal">true</span>;<span class="comment">//不行就继续</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;<span class="comment">//可能这里有点难理解。可以手动模拟一下</span></span><br><span class="line"><span class="keyword">char</span> ch;<span class="comment">//开头字母 </span></span><br><span class="line"><span class="keyword">int</span> ans=<span class="number">-1</span>;<span class="comment">//答案 </span></span><br><span class="line"><span class="keyword">int</span> an=<span class="number">0</span>;<span class="comment">//每次搜到的当前最长串 </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> p)</span></span>&#123;<span class="comment">//p为尾部单词编号(p的后缀就是“龙”的后缀，因为p已经连接到”龙“后面了)</span></span><br><span class="line">    <span class="keyword">bool</span> jx=<span class="literal">false</span>; </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(vis[j]&gt;=<span class="number">2</span>) <span class="keyword">continue</span>;<span class="comment">//使用了两次就跳过 </span></span><br><span class="line">        <span class="keyword">if</span>(yc[p][j]==<span class="number">0</span>) <span class="keyword">continue</span>;<span class="comment">//两单词之间没有重合部分就跳过 </span></span><br><span class="line">        <span class="keyword">if</span>(yc[p][j]==tr[p].size() || yc[p][j]==tr[j].size()) <span class="keyword">continue</span>;<span class="comment">//两者存在包含关系就跳过 </span></span><br><span class="line">        an+=tr[j].size()-yc[p][j];<span class="comment">//两单词合并再减去最小重合部分 </span></span><br><span class="line">        vis[j]++;<span class="comment">//使用了一次</span></span><br><span class="line">        jx=<span class="literal">true</span>;<span class="comment">//标记一下当前已经成功匹配到一个可以连接的部分 </span></span><br><span class="line">        dfs(j); <span class="comment">//接上去</span></span><br><span class="line">        an-=tr[j].size()-yc[p][j];<span class="comment">//回溯，就要再减回去那一部分长度 </span></span><br><span class="line">        vis[j]--;<span class="comment">//回溯,使用-- </span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(jx==<span class="literal">false</span>)&#123;<span class="comment">//jx==false说明不能再找到任何一个单词可以相连了 </span></span><br><span class="line">        ans=max(ans,an);<span class="comment">//更新ans </span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;tr[i];</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;ch; </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)&#123;</span><br><span class="line">            yc[i][j]=mt(i,j); </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="comment">//预处理yc数组。yc[i][j]就表示，i单词后连接一个j单词的最小重叠部分 </span></span><br><span class="line">    <span class="comment">//比如 i表示at,j表示att. yc[i][j]就为2 但是yc[j][i]就为0.</span></span><br><span class="line">    <span class="comment">//预处理是一个关键</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;<span class="comment">//从头到尾看一下有没有以指定开头字母为开头的单词 </span></span><br><span class="line">        <span class="keyword">if</span>(tr[i][<span class="number">0</span>]==ch)&#123;<span class="comment">//如果有，就以当前单词为基准进行搜索。 </span></span><br><span class="line">            vis[i]++;<span class="comment">//使用过一次 </span></span><br><span class="line">            an=tr[i].size();<span class="comment">//更新当前串长度 </span></span><br><span class="line">            dfs(i);<span class="comment">//接上</span></span><br><span class="line">            vis[i]=<span class="number">0</span>;<span class="comment">//消除影响 </span></span><br><span class="line">        &#125; </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>,ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另外思路是zcy dalao所提供的。在做题的时候又发现了许多新的问题，所以贴出来既是给自己警示也分享给大家。</p>
+<p>###2017.10.27老物 Luogu第一篇题解</p>
+
+      </div>
+        <div class="support-author">
+          <p>感谢您的阅读。 🙏
+          <a href="https://hinanawif.github.io/" target="_blank">关于转载请看这里</a>
+            <!--<a class="btn-pay"  href="#pay-modal">¥ 打赏支持</a>-->
+          </p>
+        </div>
+        <!--
+            <div class="like ">
+              <div class="like-button">
+                <a id="like-note" href="">
+                  <i class="icon-heart"></i>喜欢
+                </a>
+              </div>
+              <span id="likes-count">256</span>
+            </div>
+        -->
+        <div class="otherLink">
+          <div class="previous">
+          </div>
+          <div class="next">
+          </div>
+        </div>
+        <div class="comments" id="comments">
+          
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  const gitalk = new Gitalk({
+    clientID: '8888a8888',
+    clientSecret: '8888886666666',
+    repo: 'xxxx.github.io',
+    owner: 'admin',
+    admin: ['admin'],
+    id: location.pathname,      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false
+  })
+
+  gitalk.render('comments');
+</script>
+
+
+        </div>
+      </div>
+    </div>
+   
+</main>
+<div class="footer">
+  <div class="info">
+    <p>
+    <a href="https://hexo.io"> Hexo </a> 强力驱动 |
+      <a href="https://github.com/Youthink/hexo-themes-yearn"> Yearn </a>
+      主题
+    </p>
+    <p>&copy;2019 Hinanawi_Feng&#39;s Blog</p>
+  </div>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>//console
+  var consoleConfig = '\n欢迎访问HinanawiF的博客 https://hinanawif.github.io/ ！\n,\n本博客使�?%cHexo%c 搭建，博客主题为小猿大圣开发的 %chexo-themes-yearn%c ~~~ 🎉🎉🎉 \n\n源码 https://github.com/Youthink/hexo-themes-yearn \n\n如果喜欢可以 star 支持一�?❤️~\n'.split(',');
+  var canConsole = true;
+  var consoleInfo = (function(consoleConfig) {
+  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
+    return;
+  }
+  var consoleColor = '#6190e8';
+  var _console;
+  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
+  var textStyle = 'color: ' + consoleColor + ';';
+
+  consoleConfig.map(o => {
+    var num = (o.match(/%c/g) || []).length;
+    if(/^http(s)?:\/\//.test(o)) {
+      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
+      return;
+    }
+    if (num > 0) {
+      var logArguments = [];
+      for (var i = 0; i < num; i++) {
+        if (i % 2 === 0) {
+          logArguments.push(backgroundTextStyle);
+        } else {
+          logArguments.push(textStyle);
+        }
+      }
+      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
+      return;
+    }
+    console.log('%c' + o, textStyle);
+  });
+}(consoleConfig));</script><script type="text/javascript" src="/./js/main.d9e3dd.js"></script>
+
+</body>
+</html>
